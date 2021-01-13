@@ -1,6 +1,5 @@
 package com.lpp.kiven.util.ExcelUtil;
 
-import com.lpp.kiven.config.log.Log4j2Logger;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
@@ -13,6 +12,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
@@ -31,6 +32,7 @@ import java.util.Map;
  * @version: $
  */
 public class ExcelToJavaBean {
+    private static Logger logger = LoggerFactory.getLogger(ExcelToJavaBean.class);
     /**
      * 文件名后缀
      */
@@ -55,13 +57,13 @@ public class ExcelToJavaBean {
     public static JSONArray readExcel(MultipartFile file) throws Exception{
         int res = checkFile(file);
         if (res == TYPE_NULL) {
-            Log4j2Logger.error("未找到文件!");
+            logger.error("未找到文件!");
         }else if (res == TYPE_XLSX){
             return readXLSX(file);
         }else if (res == TYPE_XLS){
             return readXLS(file);
         }else if (res == TYPE_OTHER){
-            Log4j2Logger.error("文件类型错误!");
+            logger.error("文件类型错误!");
         }
         JSONArray array = new JSONArray();
         return array;

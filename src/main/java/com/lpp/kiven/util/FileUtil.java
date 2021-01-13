@@ -1,7 +1,8 @@
 package com.lpp.kiven.util;
 
-import com.lpp.kiven.config.log.Log4j2Logger;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
@@ -15,6 +16,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class FileUtil {
+    private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
+
 	public static void uploadFile(byte[] file, String filePath, String fileName)
 			throws Exception {
 		File targetFile = new File(filePath);
@@ -35,7 +38,7 @@ public class FileUtil {
      * @return
      */
     public static String upload(MultipartFile file, String fileFileName, String path) {
-        Log4j2Logger.info("开始上传文件" + fileFileName);
+        logger.info("开始上传文件" + fileFileName);
         try {
             char[] fileNameList=fileFileName.toCharArray();
             int fileNameLenght=0;
@@ -48,16 +51,16 @@ public class FileUtil {
                 }
             }
             if (fileNameLenght>1024){
-                Log4j2Logger.error("上传文件失败，文件名超长！");
+                logger.error("上传文件失败，文件名超长！");
                 return "上传文件失败，文件名超长！（不超过512汉字/不超过1024字母）";
             }
             if (file.getSize() > 100 * 1024 * 1000) {
-                Log4j2Logger.error("上传文件失败，上传文件超过100M！");
+                logger.error("上传文件失败，上传文件超过100M！");
                 return "上传文件失败，上传文件超过100M！";
             }
             File infile = new File(path);
             if (infile.exists()) {
-                Log4j2Logger.error("上传文件失败，文件已存在：" + infile.getPath());
+                logger.error("上传文件失败，文件已存在：" + infile.getPath());
                 return "上传文件失败，文件已存在";
             }
             FileOutputStream fos = new FileOutputStream(infile);
@@ -69,14 +72,14 @@ public class FileUtil {
             }
             fos.close();
             is.close();
-            Log4j2Logger.info("上传文件成功");
+            logger.info("上传文件成功");
             return "SUCCESS";
         } catch (FileNotFoundException e) {
-            Log4j2Logger.error("上传文件失败，文件未找到：" + e.getMessage() + e);
+            logger.error("上传文件失败，文件未找到：" + e.getMessage() + e);
             e.printStackTrace();
             return "上传文件失败";
         } catch (IOException e) {
-            Log4j2Logger.error("上传文件失败，写入文件失败：" + e.getMessage() + e);
+            logger.error("上传文件失败，写入文件失败：" + e.getMessage() + e);
             e.printStackTrace();
             return "上传文件失败";
         }
@@ -102,7 +105,7 @@ public class FileUtil {
             out = response.getOutputStream();
             IOUtils.copy(input, out);
         }catch (Exception e){
-            Log4j2Logger.error("--下载文件"+exportFileName+"发生错误！", e);
+            logger.error("--下载文件"+exportFileName+"发生错误！", e);
         }
         finally {
             IOUtils.closeQuietly(input);
@@ -118,9 +121,9 @@ public class FileUtil {
         File file=new File(filePath);
         if (file.exists()){
             file.delete();
-            Log4j2Logger.info("文件："+filePath+"已删除！");
+            logger.info("文件："+filePath+"已删除！");
         }else {
-            Log4j2Logger.info("文件不存在");
+            logger.info("文件不存在");
         }
     }
     

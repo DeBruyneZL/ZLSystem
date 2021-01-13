@@ -9,7 +9,6 @@ public class ResultMsg {
 	private String url;//返回点击确认后跳转地址
 	private String status;//返回错误码
 	private Object data;//返回对象
-	private  Object[] failInfo; //有座票单保存接口 -》 票单失败列表
 
 	public String getMsg() {
 		return msg;
@@ -35,11 +34,6 @@ public class ResultMsg {
 	public void setData(Object data) {
 		this.data = data;
 	}
-	public Object[] getFailInfo() {
-		return failInfo;
-	}
-	public void setFailInfo(Object[] failInfo) {
-		this.failInfo = failInfo;
-	}
+
 
 }

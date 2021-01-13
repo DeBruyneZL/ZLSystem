@@ -17,8 +17,6 @@ import java.util.List;
 
 /**
  * XML工具类
- * @author suyunlong
- *
  */
 public class XmlUtil {
 	/**
