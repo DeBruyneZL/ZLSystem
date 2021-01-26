@@ -87,9 +87,4 @@ public class DESUtil {
             throw new RuntimeException(e);
         }
     }
-
-    public static void main(String[] args) {
-        System.out.println(DESUtil.getEncryptString("514512427724757464"));
-        System.out.println(DESUtil.getDecryptString("HOhSTXZraaUFBR83MDnqifzoeUjYHIk4"));
-    }
 }

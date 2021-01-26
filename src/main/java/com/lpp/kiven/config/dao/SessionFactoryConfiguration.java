@@ -37,10 +37,6 @@ public class SessionFactoryConfiguration {
         SessionFactoryConfiguration.mapperPath = mapperPath;
     }
 
-    // 实体类所在的package
-    @Value("${type_alias_package}")
-    private String typeAliasPackage;
-
     @Autowired
     private DataSource dataSource;
 

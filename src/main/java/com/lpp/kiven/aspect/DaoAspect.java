@@ -34,13 +34,8 @@ public class DaoAspect {
             long startTime=System.currentTimeMillis();
             Object obj=point.proceed();
             long endTime=System.currentTimeMillis();
-
-            String daoName=point.getSignature().getName();
-            if(checkWhiteList(daoName))
-            {
-                logger.debug(point.getSignature().getDeclaringTypeName() + "." +point.getSignature().getName()+":入参:"+(point.getArgs()==null?"":gson.toJson(point.getArgs()))
+            logger.info(point.getSignature().getDeclaringTypeName() + "." +point.getSignature().getName()+":入参:"+(point.getArgs()==null?"":gson.toJson(point.getArgs()))
                             +",返参:"+(obj==null?"":gson.toJson(obj))+",耗时:"+(endTime-startTime));
-            }
             return obj;
         } catch (Exception e) {
             throw e;
